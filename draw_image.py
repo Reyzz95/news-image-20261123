@@ -25,16 +25,12 @@ draw.rectangle([0, 92, WIDTH, 95], fill="#3B82F6") # Accent line
 font_title = get_font(26, bold=True)
 font_subtitle = get_font(14, bold=False)
 
-draw.text((30, 20), "GLOBAL NEWS CHRONICLE", fill="#F8FAFC", font=font_title)
-draw.text((30, 56), "MONDAY, 23 NOVEMBER 2026 · SPECIAL EDITION", fill="#93C5FD", font=font_subtitle)
+draw.text((30, 18), "GLOBAL NEWS CHRONICLE", fill="#F8FAFC", font=font_title)
+# Thin accent underline below banner title for visual polish
+draw.line([30, 50, 360, 50], fill="#60A5FA", width=2)
+draw.text((30, 58), "MONDAY, 23 NOVEMBER 2026 · SPECIAL EDITION", fill="#93C5FD", font=font_subtitle)
 
 # Grid layout for 4 panels
-# Panels start at y=110 to 1014 (height 904, split into 2 rows of 442 each, with 20px gaps)
-# Margins: left/right 15px, gaps 15px
-# Panel width: (1024 - 30 - 15) / 2 = 489. Let's precise:
-# x: 15 to 500 (width 485), 524 to 1009 (width 485)
-# y: 110 to 542 (height 432), 562 to 994 (height 432)
-
 panels = [
     {
         "box": (15, 110, 500, 542),
@@ -63,7 +59,7 @@ panels = [
 ]
 
 font_panel_title = get_font(15, bold=True)
-font_caption = get_font(12, bold=False)
+font_caption = get_font(12, bold=True) # Enhanced caption contrast with bold font
 
 for p in panels:
     x0, y0, x1, y1 = p["box"]
@@ -78,7 +74,6 @@ for p in panels:
 # --- PANEL 1: COP31 Antalya Climate Summit ---
 p1_box = panels[0]["box"]
 px0, py0, px1, py1 = p1_box
-# Draw a stylized summit scene inside (py0 + 46 to py1 - 25)
 s_top = py0 + 46
 s_bot = py1 - 30
 
@@ -87,7 +82,6 @@ draw.rectangle([px0+2, s_top, px1-2, s_bot], fill="#FEF3C7")
 # Palm tree silhouettes
 for tx in [px0 + 60, px1 - 80]:
     draw.rectangle([tx-4, s_top + 100, tx+4, s_bot - 40], fill="#78350F")
-    # Palm leaves (arcs/polygons)
     for angle_offset in [-40, -20, 0, 20, 40]:
         draw.line([tx, s_top + 100, tx + angle_offset * 2, s_top + 70 + abs(angle_offset)], fill="#047857", width=6)
 
@@ -97,13 +91,12 @@ draw.rectangle([px0 + 120, s_bot - 70, px1 - 120, s_bot - 50], fill="#D97706")
 
 # Stamp / Banner: NO DEAL
 draw.rectangle([px0 + 70, s_top + 110, px1 - 70, s_top + 180], outline="#DC2626", width=5)
-# Rotate/skew effect or bold text
 font_stamp = get_font(28, bold=True)
 draw.text((px0 + 105, s_top + 125), "COP31: NO DEAL", fill="#DC2626", font=font_stamp)
 
 # Caption
 draw.rectangle([px0, py1 - 28, px1, py1], fill="#1E293B")
-draw.text((px0 + 12, py1 - 22), "Antalya: ~200 nations fail to agree after 48h overtime", fill="#F8FAFC", font=font_caption)
+draw.text((px0 + 12, py1 - 22), "Antalya: ~200 nations fail to agree after 48h overtime", fill="#FFFFFF", font=font_caption)
 
 
 # --- PANEL 2: Ukraine Sinks Russian Warship Merkury in Libya ---
@@ -114,7 +107,6 @@ s_bot = py1 - 30
 
 # Sea background
 draw.rectangle([px0+2, s_top, px1-2, s_bot], fill="#1E3A8A")
-# Waves
 for wy in range(s_top + 50, s_bot, 40):
     draw.arc([px0 + 20, wy, px1 - 20, wy + 30], 0, 180, fill="#3B82F6", width=3)
 
@@ -129,7 +121,6 @@ draw.polygon([
     (ship_x + 230, ship_y + 20),
     (ship_x + 40, ship_y + 20)
 ], fill="#475569")
-# Superstructure / mast
 draw.rectangle([ship_x + 100, ship_y - 20, ship_x + 140, ship_y + 20], fill="#64748B")
 draw.line([ship_x + 120, ship_y - 20, ship_x + 120, ship_y - 50], fill="#94A3B8", width=3)
 
@@ -143,7 +134,7 @@ draw.line([ship_x - 80, ship_y + 100, ship_x, ship_y + 60], fill="#93C5FD", widt
 
 # Caption
 draw.rectangle([px0, py1 - 28, px1, py1], fill="#1E293B")
-draw.text((px0 + 12, py1 - 22), "Benghazi Port: Russian corvette Merkury struck by drone", fill="#F8FAFC", font=font_caption)
+draw.text((px0 + 12, py1 - 22), "Benghazi Port: Russian corvette Merkury struck by drone", fill="#FFFFFF", font=font_caption)
 
 
 # --- PANEL 3: Factory Fire in Banten, Indonesia ---
@@ -159,7 +150,6 @@ draw.rectangle([px0+2, s_top, px1-2, s_bot], fill="#0F172A")
 fac_x = px0 + 60
 fac_y = s_bot - 160
 draw.rectangle([fac_x, fac_y, fac_x + 320, s_bot], fill="#1E293B")
-# Smokestacks
 draw.rectangle([fac_x + 60, fac_y - 80, fac_x + 90, fac_y], fill="#334155")
 draw.rectangle([fac_x + 220, fac_y - 60, fac_x + 250, fac_y], fill="#334155")
 
@@ -187,7 +177,7 @@ draw.text((px0 + 55, s_top + 20), "BANTEN BLAZE: 24+ KILLED, ~30 MISSING", fill=
 
 # Caption
 draw.rectangle([px0, py1 - 28, px1, py1], fill="#1E293B")
-draw.text((px0 + 12, py1 - 22), "Candy factory fire in Indonesia triggers massive rescue", fill="#F8FAFC", font=font_caption)
+draw.text((px0 + 12, py1 - 22), "Candy factory fire in Indonesia triggers massive rescue", fill="#FFFFFF", font=font_caption)
 
 
 # --- PANEL 4: BepiColombo Enters Mercury Orbit ---
@@ -198,8 +188,6 @@ s_bot = py1 - 30
 
 # Space background with stars
 draw.rectangle([px0+2, s_top, px1-2, s_bot], fill="#030712")
-import random
-# Deterministic pseudo-random stars using fixed coordinates
 star_coords = [
     (40, 30), (120, 70), (200, 40), (320, 90), (410, 50), (450, 120),
     (70, 180), (150, 220), (280, 170), (380, 210), (430, 260),
@@ -208,12 +196,11 @@ star_coords = [
 for sx, sy in star_coords:
     draw.ellipse([px0 + sx, s_top + sy, px0 + sx + 3, s_top + sy + 3], fill="#FFFFFF")
 
-# Planet Mercury (cratered sphere)
+# Planet Mercury
 merc_cx = px0 + 150
 merc_cy = s_top + 200
 merc_r = 75
 draw.ellipse([merc_cx - merc_r, merc_cy - merc_r, merc_cx + merc_r, merc_cy + merc_r], fill="#6B7280")
-# Craters on Mercury
 craters = [
     (-25, -20, 12), (20, -30, 16), (-10, 25, 20), (35, 20, 14), (-40, 10, 10)
 ]
@@ -225,21 +212,16 @@ for cx_off, cy_off, cr in craters:
 # Spacecraft (BepiColombo)
 sc_x = px0 + 330
 sc_y = s_top + 130
-# Solar panels
 draw.rectangle([sc_x - 50, sc_y - 8, sc_x + 50, sc_y + 8], fill="#38BDF8", outline="#0284C7", width=1)
-# Body
 draw.rectangle([sc_x - 12, sc_y - 15, sc_x + 12, sc_y + 15], fill="#E2E8F0")
-# Dish antenna
 draw.arc([sc_x + 12, sc_y - 12, sc_x + 28, sc_y + 12], 270, 90, fill="#F59E0B", width=2)
-# Orbit trajectory arc
 draw.arc([merc_cx - 110, merc_cy - 110, merc_cx + 110, merc_cy + 110], 300, 120, fill="#38BDF8", width=2)
 
-# Mission badge text
 draw.text((px0 + 20, s_top + 10), "ESA / JAXA · 8-YEAR JOURNEY COMPLETE", fill="#38BDF8", font=get_font(11, bold=True))
 
 # Caption
 draw.rectangle([px0, py1 - 28, px1, py1], fill="#1E293B")
-draw.text((px0 + 12, py1 - 22), "BepiColombo spacecraft successfully enters Mercury orbit", fill="#F8FAFC", font=font_caption)
+draw.text((px0 + 12, py1 - 22), "BepiColombo spacecraft successfully enters Mercury orbit", fill="#FFFFFF", font=font_caption)
 
 
 # Save entry.png
